@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Manrope;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgb(17 24 39 / var(--tw-text-opacity));
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-weight: 600;
+  src: url('/src/font/Manrope-Bold.woff2');
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-weight: normal;
+  src: url('/src/font/Manrope-Regular.woff2');
+}
