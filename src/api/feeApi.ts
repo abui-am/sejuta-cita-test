@@ -1,4 +1,4 @@
-import { Category } from '../types';
+import { Category } from '../types/category';
 import api from './base';
 
 export type GetFreeAssestmentBooksParams = {
