@@ -22,6 +22,8 @@ const useBookmark = () => {
     if (!isBookmarked) {
       setBookmarks([...bookmarks, bookmark]);
       toast.success(`${bookmark.title} Successfully added to bookmarks`);
+    } else {
+      toast(`${bookmark.title} Already in bookmarks`);
     }
   };
 

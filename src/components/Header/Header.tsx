@@ -35,7 +35,7 @@ function Header({
           </ol>
         </header>
       </div>
-      <Container className="px-4 pb-4 sm:hidden ">{input}</Container>
+      <Container className="m:hidden pb-4">{input}</Container>
     </div>
   );
 }
