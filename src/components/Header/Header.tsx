@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import logos from '../../assets/logo-bg-new.webp';
+import Container from '../Container/Container';
 
 function Header({
   onChangeSearchText,
@@ -8,24 +10,26 @@ function Header({
   onChangeSearchText: (text: string) => void;
 }) {
   return (
-    <div className="bg-white sticky top-0">
+    <div className="bg-white sticky top-0 z-10">
       <div className="flex justify-center h-[78px]">
         <header className="flex w-full items-center justify-between max-w-[1440px] mx-6 sm:mx-10">
-          <div>
+          <Link to="/">
             <img height={44} width={98} src={logos} alt="logo" />
-          </div>
+          </Link>
           <ol className="flex">
-            <li className="text-sm text-primary">Booku</li>
+            <Link to="/bookmark">
+              <li className="text-sm text-primary">Bookmark</li>
+            </Link>
           </ol>
         </header>
       </div>
-      <div className="px-4 pb-4">
+      <Container className="px-4 pb-4 ">
         <input
           placeholder="Search here..."
           onChange={(e) => onChangeSearchText(e.target.value)}
           className="border rounded-full py-2 px-3 w-full"
         />
-      </div>
+      </Container>
     </div>
   );
 }

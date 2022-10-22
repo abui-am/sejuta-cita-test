@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import ButtonRounded from '../Button/ButtonRounded';
 
@@ -23,7 +23,7 @@ function Pagination({
   onClickPrev,
 }: PaginationProps): JSX.Element {
   const totalPage = Math.ceil(totalCount / pageSize) || 1;
-  const [currentPage, setCurrentPage] = useState(_currPage || 1);
+  const [currentPage, setCurrentPage] = useState(_currPage ?? 1);
 
   const getPaginationGroup = () => {
     const start = Math.floor((currentPage - 1) / siblingCount) * siblingCount;
@@ -60,6 +60,9 @@ function Pagination({
   const isShowNext =
     totalPage > siblingCount && pg[0] + siblingCount - 1 < totalPage;
 
+  useEffect(() => {
+    setCurrentPage(_currPage ?? 1);
+  }, [_currPage]);
   return (
     <section id="pagination" className="flex space-x-4">
       {/* previous button */}

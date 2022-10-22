@@ -4,17 +4,21 @@ import React, { useCallback, useEffect } from 'react';
 import {
   getFreeAssestmentBooks,
   getFreeAssestmentCategories,
-} from '../api/feeApi';
-import Container from '../components/Container/Container';
-import Pagination from '../components/Pagination/Pagination';
-import { Book } from '../types/book';
-import { Category } from '../types/category';
+} from '../../api/feeApi';
+import useBookmark from '../../hooks/useBookmark';
+import { Book } from '../../types/book';
+import { Category } from '../../types/category';
+import Container from '../Container/Container';
+import Pagination from '../Pagination/Pagination';
+import BookComponent from './Book';
 
 function Books({ searchText }: { searchText: string }) {
-  const [page, setPage] = React.useState<number>(0);
+  const [page, setPage] = React.useState<number>(1);
   const [categories, setCategories] = React.useState<Category[]>([]);
   const [categoryId, setCategoryId] = React.useState<number | null>(1);
   const [books, setBooks] = React.useState<Book[]>([]);
+  const { addBookmark } = useBookmark();
+
   const getCategories = async () => {
     const res = await getFreeAssestmentCategories();
     setCategories(res.data);
@@ -22,7 +26,7 @@ function Books({ searchText }: { searchText: string }) {
   const getBooks = useCallback(async () => {
     const res = await getFreeAssestmentBooks({
       categoryId,
-      page,
+      page: page - 1,
       size: 10,
     });
     setBooks(res.data);
@@ -47,7 +51,10 @@ function Books({ searchText }: { searchText: string }) {
           {categories?.map((category) => (
             <button
               type="button"
-              onClick={() => setCategoryId(category.id)}
+              onClick={() => {
+                setCategoryId(category.id);
+                setPage(1);
+              }}
               key={category.id}
               className={clsx(
                 categoryId === category.id &&
@@ -64,20 +71,13 @@ function Books({ searchText }: { searchText: string }) {
         {/* bg-orange-100 */}
 
         <h1 className="font-bold">Books</h1>
-        <div className="grid flex-wrap grid-cols-3 mt-4 gap-4">
+        <div className="grid flex-wrap grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 mt-4 gap-4">
           {filteredBooks?.map((book) => (
-            <div key={book.id}>
-              <img
-                src={book.cover_url}
-                alt={book.title}
-                width="100%"
-                className="mb-2 rounded-lg"
-              />
-              <h2 className="font-bold text-sm">{book.title}</h2>
-              <p className="mt-2 truncate text-xs text-gray-600">
-                {book.description}
-              </p>
-            </div>
+            <BookComponent
+              onClickBookmark={() => addBookmark(book)}
+              book={book}
+              key={book.id}
+            />
           ))}
         </div>
         <div className="flex justify-center mt-6 mb-6">
@@ -94,7 +94,7 @@ function Books({ searchText }: { searchText: string }) {
             }}
             pageSize={10}
             totalCount={50}
-            currentPage={1}
+            currentPage={page}
           />
         </div>
       </Container>
