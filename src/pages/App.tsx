@@ -11,11 +11,11 @@ function App() {
     setSearchText(text);
   };
   return (
-    <main>
+    <>
       <Header onChangeSearchText={handleChangeSearchText} />
       <Books searchText={searchText} />
       <Footer />
-    </main>
+    </>
   );
 }
 

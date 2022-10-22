@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 
 import { Book } from '../types/book';
 
@@ -20,11 +21,13 @@ const useBookmark = () => {
     const isBookmarked = bookmarks.some((b) => b.id === bookmark.id);
     if (!isBookmarked) {
       setBookmarks([...bookmarks, bookmark]);
+      toast.success(`${bookmark.title} Successfully added to bookmarks`);
     }
   };
 
-  const removeBookmark = (bookmark: Book) => {
-    setBookmarks(bookmarks.filter((b) => b.id !== bookmark.id));
+  const removeBookmark = (bookmarkId: number) => {
+    setBookmarks(bookmarks.filter((b) => b.id !== bookmarkId));
+    toast.success(`Successfully delete bookmarks`);
   };
   return { bookmarks, addBookmark, removeBookmark };
 };

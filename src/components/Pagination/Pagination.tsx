@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
+import { ChevronDown } from 'react-bootstrap-icons';
 
 import ButtonRounded from '../Button/ButtonRounded';
 
@@ -11,6 +12,7 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
   onClickNext: (page: number) => void;
   onClickPrev: (page: number) => void;
+  onPerPageChange: (pageSize: number) => void;
 }
 
 function Pagination({
@@ -21,6 +23,7 @@ function Pagination({
   onPageChange,
   onClickNext,
   onClickPrev,
+  onPerPageChange,
 }: PaginationProps): JSX.Element {
   const totalPage = Math.ceil(totalCount / pageSize) || 1;
   const [currentPage, setCurrentPage] = useState(_currPage ?? 1);
@@ -64,15 +67,14 @@ function Pagination({
     setCurrentPage(_currPage ?? 1);
   }, [_currPage]);
   return (
-    <section id="pagination" className="flex space-x-4">
+    <section id="pagination" className="flex space-x-4 mt-6">
       {/* previous button */}
       <ButtonRounded
         className="group"
         onClick={handleClickPrev}
         disabled={isDisablePrev}
       >
-        <img
-          loading="lazy"
+        <ChevronDown
           width={12}
           height={12}
           style={{
@@ -83,8 +85,6 @@ function Pagination({
             !isDisablePrev && 'group-hover:invert group-hover:brightness-0',
             isDisablePrev && 'opacity-60',
           )}
-          alt="next"
-          src="https://ekrutassets.s3.ap-southeast-1.amazonaws.com/fe_static/icons/arrow_down_icon.svg"
         />
       </ButtonRounded>
       {isShowPrev && (
@@ -108,27 +108,34 @@ function Pagination({
           <span>...</span>
         </ButtonRounded>
       )}
-
+      <select
+        onChange={(e) => {
+          onPerPageChange(Number(e.target.value));
+        }}
+        value={pageSize}
+        className="w-24 border rounded-lg px-1 py-1 text-sm text-gray-600"
+      >
+        <option value={10}>10 books</option>
+        <option value={20}>20 books</option>
+        <option value={50}>50 books</option>
+      </select>
       {/* next button */}
       <ButtonRounded
         onClick={handleClickNext}
         disabled={isDisableNext}
         className="group"
       >
-        <img
-          loading="lazy"
+        <ChevronDown
           style={{
             transform: 'rotate(270deg)',
           }}
           width={12}
           height={12}
-          alt="next"
           // Inverse black to white when hover
           className={clsx(
             !isDisableNext && 'group-hover:invert  group-hover:brightness-0',
             isDisableNext && 'opacity-60',
           )}
-          src="https://ekrutassets.s3.ap-southeast-1.amazonaws.com/fe_static/icons/arrow_down_icon.svg"
         />
       </ButtonRounded>
     </section>

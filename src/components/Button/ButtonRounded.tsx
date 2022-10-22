@@ -13,7 +13,7 @@ function ButtonRounded({
     <button
       type="button"
       className={clsx(
-        'w-8 h-8 sm:w-5 sm:h-5 rounded-lg flex items-center justify-center text-sm sm:text-xs disabled:cursor-default',
+        'w-8 h-8 rounded-lg flex items-center justify-center text-sm sm:text-xs disabled:cursor-default',
         className,
 
         color === 'primary' && 'bg-primary text-white',
