@@ -5,20 +5,31 @@ import { setupServer } from 'msw/node';
 
 import Books from '../Books';
 import book from './json/book.json';
+import book12 from './json/book12.json';
 
 const handlers = [
   rest.get(
     '/fee-assessment-books?categoryId=1&page=0&size=10',
-    (req, res, ctx) => res(ctx.json(book[1])),
+    (req, res, ctx) => {
+      const categoryId = req.url.searchParams.get('categoryId');
+      const page = req.url.searchParams.get('page');
+      const size = req.url.searchParams.get('size');
+      if (categoryId === '1' && page === '0' && size === '10') {
+        return res(ctx.json(book[1]));
+      }
+      if (categoryId === '1' && page === '1' && size === '10') {
+        return res(ctx.json(book[2]));
+      }
+      if (categoryId === '1' && page === '0' && size === '20') {
+        return res(ctx.json(book['1s20']));
+      }
+      if (categoryId === '12' && page === '0' && size === '10') {
+        return res(ctx.json(book12));
+      }
+      return res(ctx.status(404));
+    },
   ),
-  rest.get(
-    '/fee-assessment-books?categoryId=1&page=1&size=10',
-    (req, res, ctx) => res(ctx.json(book[2])),
-  ),
-  rest.get(
-    '/fee-assessment-books?categoryId=12&page=0&size=10',
-    (req, res, ctx) => res(ctx.json(book)),
-  ),
+
   rest.get('/fee-assessment-categories', (req, res, ctx) =>
     res(
       ctx.json([
@@ -108,5 +119,14 @@ describe('Books Test', () => {
     );
     expect(queryByText('The Subtle Art of Not Giving a F*ck')).toBe(null);
     expect(await findByText('Brain Maker')).toBeVisible();
+  });
+
+  it('should able to change item per page', async () => {
+    const { getByTestId, findByText, queryByText } = render(
+      <Books searchText="" />,
+    );
+    expect(queryByText('How I Built This')).toBe(null);
+    await userEvent.selectOptions(getByTestId('select-per-page'), '20 books');
+    expect(await findByText(/How I Built This/g)).toBeVisible();
   });
 });

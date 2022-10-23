@@ -112,8 +112,9 @@ function Pagination({
         onChange={(e) => {
           onPerPageChange(Number(e.target.value));
         }}
+        data-testid="select-per-page"
         value={pageSize}
-        className="w-24 border rounded-lg px-1 py-1 text-sm text-gray-600"
+        className="w-24 bg-white border rounded-lg px-1 py-1 text-sm text-gray-600"
       >
         <option value={10}>10 books</option>
         <option value={20}>20 books</option>

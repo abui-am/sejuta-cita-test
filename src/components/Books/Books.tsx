@@ -36,6 +36,7 @@ function Books({ searchText }: { searchText: string }) {
       page: page - 1,
       size: perPage,
     });
+
     setBooks(res);
     setIsLoading(false);
   }, [categoryId, page, perPage]);
