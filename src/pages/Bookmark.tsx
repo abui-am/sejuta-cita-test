@@ -18,7 +18,7 @@ function Bookmark() {
     setPage(1);
   };
   const filteredBooks = bookmarks
-    .filter((book) =>
+    .filter?.((book) =>
       book.title.toLowerCase().includes(searchText.toLowerCase()),
     )
     .slice((page - 1) * perPage, page * perPage);
