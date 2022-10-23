@@ -64,6 +64,7 @@ function Books({ searchText }: { searchText: string }) {
                 setCategoryId(category.id);
                 setPage(1);
               }}
+              name={category.name}
               key={category.id}
               className={clsx(
                 categoryId === category.id &&
@@ -80,7 +81,10 @@ function Books({ searchText }: { searchText: string }) {
         <h1 className="font-bold sm:text-lg lg:text-2xl">Books</h1>
         <div className="grid flex-wrap grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-4">
           {isLoading
-            ? Array.from({ length: 10 }).map(() => <BookSkeleton />)
+            ? Array.from({ length: 10 }).map((_, index) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <BookSkeleton key={index} />
+              ))
             : filteredBooks?.map((book) => (
                 <BookComponent
                   onClickBookmark={() => addBookmark(book)}

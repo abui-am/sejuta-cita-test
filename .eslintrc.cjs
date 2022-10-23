@@ -16,7 +16,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
     parser: '@typescript-eslint/parser',
-    project: ['./tsconfig.json'], // Specify it only for TypeScript files
+    project: ['./tsconfig.json'], // Specify it only for TypeScript files,
   },
   plugins: ['react', 'simple-import-sort'],
   rules: {

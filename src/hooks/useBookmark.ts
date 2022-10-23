@@ -13,7 +13,7 @@ const useBookmark = () => {
   }, [bookmarks]);
   useEffect(() => {
     const bm = localStorage.getItem('bookmarks');
-    setBookmarks(JSON.parse(bm || '{}'));
+    setBookmarks(JSON.parse(bm || '[]'));
   }, []);
 
   const addBookmark = (bookmark: Book) => {

@@ -15,7 +15,6 @@ function ButtonRounded({
       className={clsx(
         'w-8 h-8 rounded-lg flex items-center justify-center text-sm sm:text-xs disabled:cursor-default',
         className,
-
         color === 'primary' && 'bg-primary text-white',
         color === 'default' &&
           'hover:bg-primary hover:text-white disabled:bg-transparent border',
