@@ -2,8 +2,8 @@ import clsx from 'clsx';
 import React, { useCallback, useEffect } from 'react';
 
 import {
-  getFreeAssestmentBooks,
-  getFreeAssestmentCategories,
+  getFeeAssestmentCategories,
+  getFeeeAssestmentBooks,
 } from '../../api/feeApi';
 import useBookmark from '../../hooks/useBookmark';
 import { Book } from '../../types/book';
@@ -26,12 +26,12 @@ function Books({ searchText }: { searchText: string }) {
     setPage(1);
   };
   const getCategories = async () => {
-    const res = await getFreeAssestmentCategories();
+    const res = await getFeeAssestmentCategories();
     setCategories(res);
   };
   const getBooks = useCallback(async () => {
     setIsLoading(true);
-    const res = await getFreeAssestmentBooks({
+    const res = await getFeeeAssestmentBooks({
       categoryId,
       page: page - 1,
       size: perPage,

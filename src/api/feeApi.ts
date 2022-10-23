@@ -3,13 +3,13 @@ import { Book } from '../types/book';
 import { Category } from '../types/category';
 import api from './base';
 
-export type GetFreeAssestmentBooksParams = {
+export type GetFeeeAssestmentBooksParams = {
   categoryId: number | null;
   page: number;
   size: number;
 };
-export const getFreeAssestmentBooks = async (
-  params: GetFreeAssestmentBooksParams,
+export const getFeeeAssestmentBooks = async (
+  params: GetFeeeAssestmentBooksParams,
 ) =>
   cache.fetch<Book[]>({
     key: 'fee-assessment-books',
@@ -26,7 +26,7 @@ export const getFreeAssestmentBooks = async (
     params,
   });
 
-export const getFreeAssestmentCategories = async () =>
+export const getFeeAssestmentCategories = async () =>
   cache.fetch<Category[]>({
     key: 'fee-assessment-categories',
     callback: async () => {
